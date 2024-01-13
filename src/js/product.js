@@ -1,10 +1,20 @@
-import { setLocalStorage } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 
 const dataSource = new ProductData("tents");
 
+// Armando Kamisaki's idea to move product specific logic to product.js
 function addProductToCart(product) {
-  setLocalStorage("so-cart", product);
+  let key = "so-cart";
+  let oldCart = getLocalStorage(key);
+  let newCart = [];
+  if (oldCart != null) {
+    oldCart.forEach(element => {
+      newCart.push(element);
+    });
+  }
+  newCart.push(product);
+  setLocalStorage(key, newCart);
 }
 // add to cart button event handler
 async function addToCartHandler(e) {
