@@ -9,17 +9,19 @@ export function qs(selector, parent = document) {
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
+
+// get product type from URL
+export function getParam(params) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const product = urlParams.get(params);
+
+  return product;
+}
+
 // save data to local storage
 export function setLocalStorage(key, data) {
-  var cart_list = getLocalStorage(key);  
-  let list = [];
-  if (cart_list != null) {
-    cart_list.forEach(item => {
-      list.push(item);
-    });
-  }
-  list.push(data);
-  localStorage.setItem(key, JSON.stringify(list));
+  localStorage.setItem(key, JSON.stringify(data));
 }
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
