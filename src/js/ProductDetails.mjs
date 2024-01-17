@@ -1,6 +1,6 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
-// Emiliano's Solution ty
+// Emiliano's Solution
 function productDetailsTemplate(product) {
     return `<section class="product-detail">
         <h3>${product.Brand.Name}</h3>
@@ -39,6 +39,7 @@ export default class ProductDetails {
         
     }
 
+    // Armando's Week 1 Solution
     addToCart() {
         let key = "so-cart";
         var cart_list = getLocalStorage(key);
