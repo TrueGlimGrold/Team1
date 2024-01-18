@@ -6,11 +6,9 @@ function renderCartContents() {
   // Make sure cart exists
   if (cartItems == null) {
     document.querySelector(".product-list").innerHTML = "";
-  }
-  else {
+  } else {
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
     document.querySelector(".product-list").innerHTML = htmlItems.join("");
-    
   }
 }
 
@@ -40,4 +38,4 @@ function emptyCart() {
 }
 
 renderCartContents();
-document.getElementById("emptyCart").addEventListener("click", emptyCart)
+document.getElementById("emptyCart").addEventListener("click", emptyCart);

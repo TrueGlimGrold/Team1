@@ -6,7 +6,6 @@ export function qs(selector, parent = document) {
 // export const qs = (selector, parent = document) => parent.querySelector(selector);
 
 // remove an item from local storage
-// ex: empty a cart
 export function emptyLocalStorage(key) {
   localStorage.removeItem(key);
 }
