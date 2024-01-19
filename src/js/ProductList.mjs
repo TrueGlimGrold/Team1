@@ -1,3 +1,5 @@
+import { renderListWithTemplate } from "./utils.mjs";
+
 export default class ProductList {
     // Requires product category, datasource, and HTML element to render in
     constructor(category, dataSource, listElement) {
@@ -15,8 +17,7 @@ export default class ProductList {
 
     // Render HTML for each product
     renderList(products) {
-        const htmlItems = products.map((item) => productCardTemplate(item));
-        this.listElement.innerHTML = htmlItems.join("");
+        renderListWithTemplate(productCardTemplate, this.listElement, products);
     }
 }
 

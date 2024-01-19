@@ -1,14 +1,13 @@
-import { getLocalStorage, emptyLocalStorage } from "./utils.mjs";
+import { getLocalStorage, emptyLocalStorage, renderListWithTemplate } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
-
+  const element = document.querySelector(".product-list");
   // Make sure cart exists
   if (cartItems == null) {
-    document.querySelector(".product-list").innerHTML = "";
+    element.innerHTML = "";
   } else {
-    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-    document.querySelector(".product-list").innerHTML = htmlItems.join("");
+    renderListWithTemplate(cartItemTemplate, element, cartItems);
   }
 }
 
