@@ -25,4 +25,23 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
+function getTotal() {
+  let totals = [];
+  let sum = 0;
+  let list = getLocalStorage("so-cart");
+  if (list != null) {
+    list.forEach(item => {
+      totals.push(item.FinalPrice);
+    });
+    for (let i = 0; i < totals.length; i++){
+      sum += totals[i];
+    }
+    
+    document.querySelector('#hide').classList.remove('hide');
+    document.querySelector(".cart-total").innerHTML = `Total: ${sum}`;
+  }
+}
+
+
 renderCartContents();
+getTotal();
