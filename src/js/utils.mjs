@@ -3,11 +3,6 @@ export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
 
-// remove an item from local storage
-export function emptyLocalStorage(key) {
-  localStorage.removeItem(key);
-}
-
 // retrieve data from localstorage
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));

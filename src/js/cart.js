@@ -1,8 +1,4 @@
-import {
-  getLocalStorage,
-  emptyLocalStorage,
-  renderListWithTemplate,
-} from "./utils.mjs";
+import { getLocalStorage, renderListWithTemplate } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
@@ -34,11 +30,4 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
-function emptyCart() {
-  emptyLocalStorage("so-cart");
-  // TODO: Figure out how to set cart key somewhere global, been typed out 4-5 times
-  renderCartContents();
-}
-
 renderCartContents();
-document.getElementById("emptyCart").addEventListener("click", emptyCart);
