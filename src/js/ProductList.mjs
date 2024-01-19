@@ -24,11 +24,18 @@ export default class ProductListing{
 
     async init(){
         const list = await this.dataSource.getData()
-        this.renderList(list);
+        const newList = this.filterList(list);
+        this.renderList(newList);
     }
 
     renderList(productList) {
         renderListWithTemplate(productCardTemplate, this.outputElement, productList);
     }
 
-}
+    filterList(list){
+        const newList = list.filter((item) =>
+            item.Id === '880RR' || item.Id == "985RF" || item.Id == "985PR" || item.Id == "344YJ")
+        console.log(newList);
+        return newList;
+        }   
+    }
