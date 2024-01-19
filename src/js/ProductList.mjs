@@ -11,8 +11,20 @@ export default class ProductList {
     // Populate list of products
     async init() {
         const products = await this.dataSource.getData();
-        // const because we shouldn't ever modify this data on the fly
-        this.renderList(products);
+        const filteredProducts = this.filterByDenylist(products);
+
+        this.renderList(filteredProducts);
+    }
+
+    // Remove products that are marked as not ready.
+    filterByDenylist(products) {
+        // Tedious but it works. Ideally the database would have a field for if the data can be public.
+        // Barring that, this list would be synced up with a nice GUI for marketing.
+        const idDenylist = ["989CG", "880RT"];
+
+        return products.filter(
+            (item) => !idDenylist.includes(item.Id)
+        );
     }
 
     // Render HTML for each product
