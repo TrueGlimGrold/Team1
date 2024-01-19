@@ -2,11 +2,15 @@ import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 // Emiliano's Solution
 function productDetailsTemplate(product) {
+    const regularPrice = (product.SuggestedRetailPrice).toFixed(2);
+    const discount = (regularPrice - product.FinalPrice).toFixed(2);
     return `<section class="product-detail">
         <h3>${product.Brand.Name}</h3>
         <h2 class="divider">${product.NameWithoutBrand}</h2>
         <img src="${product.Image}" alt="${product.NameWithoutBrand}" />
-        <p class="product-card__price">${product.FinalPrice}</p>
+        <p class="product-card__price">Regular price: $${regularPrice}</p>
+        <p class="product-card__discount">Discount:      $${discount}</p>
+        <p class="product-card__price">Special price: $${product.FinalPrice}</p>
         <p class="product__color">Color: ${product.Colors[0].ColorName}</p>
         <p class="product__description">${product.DescriptionHtmlSimple}</p>
         <div class="product-detail__add">
