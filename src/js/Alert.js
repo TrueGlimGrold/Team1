@@ -22,13 +22,11 @@ function generateAlertTemplate (alertList) {
     let template = "";
     template += `<section class="alert-list">`
     alertList.forEach(alert => {
-    template += `\n <p background=${alert.background} color=${alert.color}>${alert.message}</p>`
+    template += `\n <p style="background-color:${alert.background}" style="color=${alert.color}">${alert.message}</p>`
     });
     template += `\n</section>`
     return template;
     }
-
-// const element = document.querySelector("divider");
 
 function convertToJson(res) {
     if (res.ok) {
