@@ -18,7 +18,7 @@ function productDetailsTemplate(product) {
 export default class ProductDetails {
     constructor(productID, dataSource) {
         this.productID = productID;
-        this.product = {};
+        this.product = [];
         this.dataSource = dataSource;
     }
 
@@ -34,9 +34,6 @@ export default class ProductDetails {
         // Notice the .bind(this). Our callback will not work if we don't include that line. Review the readings from this week on 'this' to understand why.
         document.getElementById("productButton")
           .addEventListener("click", this.addToCart.bind(this));
-
-        
-        
     }
 
     // Armando's Week 1 Solution
@@ -53,11 +50,10 @@ export default class ProductDetails {
         setLocalStorage(key, list);
     }
 
+    // TODO: Refactor this to work with the generic renderer in utils.js
+    // Issue seems to be that this page only handles one product?
     renderProductDetails(selector) {
         const element = document.querySelector(selector);
-        element.insertAdjacentHTML(
-            "afterBegin",
-            productDetailsTemplate(this.product)
-        );
+        element.insertAdjacentHTML("afterBegin", productDetailsTemplate(this.product));
     }
 }

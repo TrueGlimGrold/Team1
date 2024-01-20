@@ -1,9 +1,14 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, renderListWithTemplate } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  const element = document.querySelector(".product-list");
+  // Make sure cart exists
+  if (cartItems == null) {
+    element.innerHTML = "";
+  } else {
+    renderListWithTemplate(cartItemTemplate, element, cartItems);
+  }
 }
 
 function cartItemTemplate(item) {
