@@ -71,10 +71,10 @@ function getTotal() {
       sum += totals[i];
     }
  
-    document.querySelector('#hide').classList.remove('hide');
+    document.querySelector('.hide').classList.remove('hide');
     document.querySelector(".cart-total").innerHTML = `Total: ${sum}`;
   }
 }
 
 renderCartContents();
-
+getTotal();
