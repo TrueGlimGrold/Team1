@@ -69,6 +69,71 @@ export function renderListWithTemplate(
     parentElement.insertAdjacentHTML(position, htmlItems.join(""));
   }
 
+
+  // render a single html element using a given template function
+// export function renderWithTemplate(
+//     templateFunction,         // Function used to render the product
+//     parentElement,            // Target HTML element for rendering
+//     data,                     // A single peice of data to be read
+//     position = "afterbegin",  // Used in insertAdjacentHTML(position, ...)
+//     clear = false             // True if the HTML Element needs to be cleared before render
+//     ) {
+//       // Clear the HTML element if requested
+//       if (clear) {
+//         parentElement.replaceChildren();
+//       }
+//       if (callback) {
+//         callback(data);
+//       }
+//       // Convert list into filled templates.
+//       const htmlItems = data => templateFunction(data); // Change this to read all as one
+//       // Insert filled templates into the HTML.
+//       parentElement.insertAdjacentHTML(position, htmlItems.join(""));
+//     }
+
+
+export function renderWithTemplate(
+  template,         // Function used to render the product
+  parentElement,            // Target HTML element for rendering
+  position = "afterbegin",  // Used in insertAdjacentHTML(position, ...)
+  clear = false             // True if the HTML Element needs to be cleared before render
+  ) {
+    // Clear the HTML element if requested
+    if (clear) {
+      parentElement.replaceChildren();
+    }
+    // Insert filled templates into the HTML.
+    parentElement.insertAdjacentHTML(position, template);
+  }
+
+export async function loadHeaderFooter(headerID, footerID, headerPath, footerPath) {
+  const header_element = document.getElementById(headerID);
+  const footer_element = document.getElementById(footerID);
+
+  const header_response = await fetch(headerPath);
+  const footer_response = await fetch(footerPath);
+  
+  const header_template = await header_response.text();
+  const footer_template = await footer_response.text();
+
+  renderWithTemplate(header_template, header_element);
+  renderWithTemplate(footer_template, footer_element);
+
+  // if (header_response.ok) {
+  //   const header_data = await header_response.text();
+  //   const header_template = document.createElement("template");
+  //   header_template.innerHTML = header_data;
+  //   // header_element.insertAdjacentHTML("afterbegin", header_template);
+  //   renderWithTemplate(header_template, header_element);
+  // }
+  // if (footer_response.ok) {
+  //   const footer_data = await footer_response.text();
+  //   const footer_template = document.createElement("template");
+  //   footer_template.innerHTML = footer_data;
+  //   renderWithTemplate(footer_template, footer_element);
+  // }
+}
+
 // save data to local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));

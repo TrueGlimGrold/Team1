@@ -4,6 +4,8 @@ import {
   renderListWithTemplate,
 } from "./utils.mjs";
 
+import { loadHeaderFooter } from "./utils.mjs";
+
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
   const element = document.querySelector(".product-list");
@@ -78,3 +80,10 @@ function getTotal() {
 
 renderCartContents();
 getTotal();
+
+loadHeaderFooter(
+  "header",
+  "footer",
+  "../public/partials/header.html",
+  "../public/partials/footer.html"
+);
