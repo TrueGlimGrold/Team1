@@ -61,7 +61,7 @@ export function renderListWithTemplate(
 /**
  * @param templateFunction - Optional function to use in rendering an object. If using output from another rendering function, set this value to null and pass in the string through the data parameter.
  * @param {Element} parentElement - Element from the HTML page to render this data inside.
- * @param {string} data - Data to be rendered into the Element
+ * @param {string} data - Data to be rendered into the Element. If this is a list, use renderListWithTemplate.
  * @param {string} position - insertAdjacentHTML(position, ...) Look up documentation for that.
  * @param {boolean} clear - if True, remove all content from the Element before inserting new data.
  */
