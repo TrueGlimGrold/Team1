@@ -89,10 +89,25 @@
             <p class="cart-card__quantity">qty: 1</p>
             <p class="cart-card__price">$199.99</p>
           </li> -->
+
+
+          <section>
+            <h3>${product.Brand.Name}</h3>
+            <h2>${product.NameWithoutBrand}</h2>
+            <img src="${product.Image}" alt="${product.NameWithoutBrand}" />
+            <p>$${product.FinalPrice}</p>
+            <p>Color: ${product.Colors[0].ColorName}</p>
+            <p>${product.DescriptionHtmlSimple}</p>
+            <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+        </section>
+
+
+
         </ul>
       </section>
     </main>
 
     <footer>&copy;NOT a real business</footer>
   </body>
+  <script src="js/main.js"></script>
 </html>
