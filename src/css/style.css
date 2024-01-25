@@ -133,6 +133,39 @@ button {
   text-decoration: none;
   color: var(--dark-grey);
 }
+
+/* grid styles */
+.grid {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  color: var(--dark-grey);
+  padding-left: 0;
+}
+
+.grid > div {
+  width: 150px;
+  /* border: 1px solid var(--light-grey); */
+  padding: 0.5em;
+  margin: 1em;
+}
+.grid h3 {
+  margin: 0;
+
+  font-size: 1.2em;
+}
+.grid a {
+  text-decoration: none;
+}
+.grid a:link,
+.grid a:visited {
+  color: var(--dark-grey);
+}
+.grid a:hover {
+  text-decoration: underline;
+}
 /* Styles for product lists */
 .product-card {
   flex: 1 1 45%;
