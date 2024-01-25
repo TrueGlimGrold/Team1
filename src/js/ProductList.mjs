@@ -10,10 +10,31 @@ export default class ProductList {
 
     // Populate list of products
     async init() {
-        const products = await this.dataSource.getData();
-        const filteredProducts = this.filterByDenylist(products);
+        // const products = await this.dataSource.getData();
+        const products = await this.dataSource.getData(this.category);
 
+        // Trying to change an h2 element dependant on page
+
+        // Select the container for dynamic content
+        const dynamicContentContainer = document.getElementById("dynamicContent");
+
+        if (this.category === "tents") {
+            dynamicContentContainer.innerHTML = "<h1>Top Products: Tents</h1>";
+        } else if (this.category === "sleeping-bags") {
+            dynamicContentContainer.innerHTML = "<h1>Top Products: Sleeping bags</h1>";
+        } else if (this.category === "hammocks") {
+            dynamicContentContainer.innerHTML = "<h1>Top Products: Hammock</h1>";
+        } else if (this.category === "backpacks") {
+            dynamicContentContainer.innerHTML = "<h1>Top Products: Hammock</h1>";
+        }
+        
         this.renderList(filteredProducts);
+
+        document.querySelector(".title").innerHTML = this.category;
+
+        const filteredProducts = this.filterByDenylist(products);
+        
+
     }
 
     // Remove products that are marked as not ready.

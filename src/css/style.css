@@ -206,6 +206,26 @@ button {
   display: none;
 }
 
+/* Navigation formatting */
+
+#icons div{
+  max-width: 150px;
+  max-height: 150px;
+  padding: 1em;
+}
+
+#icons {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 200px;
+}
+
+#icons div a{
+  color: grey;
+  text-decoration: none;
+  text-align: center;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
