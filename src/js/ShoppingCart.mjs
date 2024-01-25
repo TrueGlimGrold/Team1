@@ -88,13 +88,13 @@ function cartItemTemplate(product) {
  * @param totalPrice - total price of all products in cart
  */
 function cartTotalTemplate(totalPrice) {
-    return `<li id="cart-total">
+    return `<li class="cart-card cart-price divider" id="cart-total">
         <p class="cart-card__total_price">Total: ${totalPrice}<p>
     </li>`;
 }
 
 function emptyCartTemplate() {
-    return `<li class="cart-card__empty_cart">
+    return `<li class="cart-card">
     <p>Your cart is empty.</p>
     </li>`;
 }
