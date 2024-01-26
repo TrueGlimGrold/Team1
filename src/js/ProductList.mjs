@@ -10,10 +10,9 @@ export default class ProductList {
 
     // Populate list of products
     async init() {
-        const products = await this.dataSource.getData();
-        const filteredProducts = this.filterByDenylist(products);
-
-        this.renderList(filteredProducts);
+        const list = await this.dataSource.getData(this.category);
+        this.renderList(list);
+        document.querySelector(".title").innerHTML = this.category;
     }
 
     // Remove products that are marked as not ready.

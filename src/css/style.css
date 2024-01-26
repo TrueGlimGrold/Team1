@@ -206,6 +206,58 @@ button {
   display: none;
 }
 
+/* Product Icons */
+
+.products-grid
+{
+  display: grid;
+  grid-template-columns: 25% auto 15%;
+  font-size: var(--small-font);
+  /* max-height: 120px; */
+  align-items: center;
+}
+
+.products-grid div:nth-child(n) a img {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.tent-main {
+  grid-column: 1;
+}
+
+.tent-main a img{
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.sleeping-main{
+  grid-column: 2;
+}
+
+.sleeping-main a img{
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.backpacks-main{
+  grid-column: 3;
+}
+
+.backpacks-main a img{
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.hammocks-main{
+  grid-column: 4;
+}
+
+.hammocks-main a img{
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;

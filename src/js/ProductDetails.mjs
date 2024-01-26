@@ -18,7 +18,7 @@ function productDetailsTemplate(product) {
 export default class ProductDetails {
     constructor(productID, dataSource) {
         this.productID = productID;
-        this.product = [];
+        this.product = {};
         this.dataSource = dataSource;
     }
 
