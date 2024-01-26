@@ -1,5 +1,13 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
+
+function giveDiscount(discount){
+  
+    product.FinalPrice - SuggestedRetailPrice 
+
+}
+
+
 // Emiliano's Solution
 function productDetailsTemplate(product) {
     const discountDifference = ((product.SuggestedRetailPrice - product.FinalPrice) / product.SuggestedRetailPrice) * 100;
