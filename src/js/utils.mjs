@@ -70,28 +70,6 @@ export function renderListWithTemplate(
   }
 
 
-  // render a single html element using a given template function
-// export function renderWithTemplate(
-//     templateFunction,         // Function used to render the product
-//     parentElement,            // Target HTML element for rendering
-//     data,                     // A single peice of data to be read
-//     position = "afterbegin",  // Used in insertAdjacentHTML(position, ...)
-//     clear = false             // True if the HTML Element needs to be cleared before render
-//     ) {
-//       // Clear the HTML element if requested
-//       if (clear) {
-//         parentElement.replaceChildren();
-//       }
-//       if (callback) {
-//         callback(data);
-//       }
-//       // Convert list into filled templates.
-//       const htmlItems = data => templateFunction(data); // Change this to read all as one
-//       // Insert filled templates into the HTML.
-//       parentElement.insertAdjacentHTML(position, htmlItems.join(""));
-//     }
-
-
 export function renderWithTemplate(
   template,         // Function used to render the product
   parentElement,            // Target HTML element for rendering
