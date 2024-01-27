@@ -238,3 +238,7 @@ footer {
   text-decoration: none;
   color: var(--dark-grey);
 }
+
+.card_discount {
+  color: red;
+}

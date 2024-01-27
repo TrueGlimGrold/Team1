@@ -44,6 +44,7 @@ export default class ProductList {
 function productCardTemplate(product) {
     return `<li class="product-card">
     <a href="/product_pages/?product=${product.Id}">
+    <p class="card_discount">$${Math.round(product.SuggestedRetailPrice - product.FinalPrice)} Discount!</p>
       <img
         src="${product.Images.PrimaryMedium}"
         alt="${product.NameWithoutBrand}"
