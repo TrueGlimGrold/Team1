@@ -23,7 +23,7 @@ body {
   color: var(--dark-grey);
 }
 img {
-  max-width: 100%;
+  width: 70%;
 }
 header {
   display: flex;
@@ -241,10 +241,41 @@ button {
   display: none;
 }
 
+search-container {
+  float: right;
+}
+
+.search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.search-container input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+  border: 1px solid #ccc; 
+}
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
     margin: auto;
+  }
+  img {
+    width: 70%;
+    margin-left: 10%;
+  }
+  .logo--square {
+    width: 80px;
+    height: 60px;
+  
   }
   .mission {
     font-size: 1.2em;
@@ -258,4 +289,15 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
+}
+
+@media screen and (min-width: 1000px) {
+  img {
+    width: 100%;
+    margin: 0;
+  }
+  .logo--square {
+    width: 110px;
+    height: 80px;    
+  }
 }
