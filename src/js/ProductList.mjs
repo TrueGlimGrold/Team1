@@ -1,5 +1,10 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
+/**
+ * @param {string} - Which category of product
+ * @param {ProductData} dataSource - Handles fetching data
+ * @param {Element} listElement - Target html element to render products in
+ */
 export default class ProductList {
     // Requires product category, datasource, and HTML element to render in
     constructor(category, dataSource, listElement) {
@@ -10,10 +15,13 @@ export default class ProductList {
 
     // Populate list of products
     async init() {
-        const products = await this.dataSource.getData();
-        const filteredProducts = this.filterByDenylist(products);
+        const products = await this.dataSource.getData(this.category);
+        this.renderList(products);
 
-        this.renderList(filteredProducts);
+        document.getElementById("listing_title").innerHTML = `Top Products: ${this.category}`;
+
+        /*const filteredProducts = this.filterByDenylist(products);
+        this.renderList(filteredProducts);*/
     }
 
     // Remove products that are marked as not ready.
@@ -35,14 +43,14 @@ export default class ProductList {
 
 function productCardTemplate(product) {
     return `<li class="product-card">
-    <a href="product_pages/?product=${product.Id}">
+    <a href="/product_pages/?product=${product.Id}">
       <img
-        src="${product.Image}"
+        src="${product.Images.PrimaryMedium}"
         alt="${product.NameWithoutBrand}"
       />
       <h3 class="card__brand">${product.Brand.Name}</h3>
       <h2 class="card__name">${product.NameWithoutBrand}</h2>
-      <p class="product-card__price">${product.FinalPrice}</p>
+      <p class="product-card__price">$${product.FinalPrice}</p>
     </a>
   </li>`;
 }
