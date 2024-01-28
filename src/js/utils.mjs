@@ -60,25 +60,19 @@ export function renderListWithTemplate(
   clear = false             // True if the HTML Element needs to be cleared before render
   ) {
     
+  
+
   // Sort according to select option 
-  const sortBySelection = document.getElementById("sortBy");
-  let sortByValue = sortBySelection.value;
-    
-    sortBySelection.addEventListener("change", SortListAlphabetically)
-    sortByValue = sortBySelection.value;
-    // Sort Alphabetically (Ascending)
-    function SortListAlphabetically() {
-      if (sortByValue == "ascending") {
-        list.sort((a, b) => (a.NameWithoutBrand < b.NameWithoutBrand) ? 1 : -1)
+    let sortByValue = document.getElementById("sortBy").value;
+    if (sortByValue == "ascending") {
+        list.sort((a, b) => (a.NameWithoutBrand > b.NameWithoutBrand) ? 1 : -1)
         console.log(list)
-        return list
-      }
-      else if (sortBySelection == "descending"){
-        list.sort((a, b) => (a.NameWithoutBrand < b.NameWithoutBrand) ? 1 : -1)
-        console.log(list)
-        return list
-      }
     }
+    else if (sortByValue == "descending"){
+        list.sort((a, b) => (a.NameWithoutBrand < b.NameWithoutBrand) ? 1 : -1)
+        console.log(list)
+    }
+
 
     // Clear the HTML element if requested
     if (clear) {
@@ -88,6 +82,9 @@ export function renderListWithTemplate(
     const htmlItems = list.map((item) => templateFunction(item));
     // Insert filled templates into the HTML.
     parentElement.insertAdjacentHTML(position, htmlItems.join(""));
+
+    // Event Handler for changing "Sort By" option -- DOES NOT WORK
+    document.getElementById("sortBy").addEventListener("change", renderListWithTemplate)
   }
 
 
