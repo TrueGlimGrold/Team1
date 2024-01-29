@@ -60,7 +60,6 @@ export function renderListWithTemplate(
   clear = false             // True if the HTML Element needs to be cleared before render
   ) {
     
-  
 
   // Sort according to select option 
     let sortByValue = document.getElementById("sortBy").value;
@@ -84,7 +83,7 @@ export function renderListWithTemplate(
     parentElement.insertAdjacentHTML(position, htmlItems.join(""));
 
     // Event Handler for changing "Sort By" option -- DOES NOT WORK
-    document.getElementById("sortBy").addEventListener("change", renderListWithTemplate)
+    document.getElementById("sortBy").addEventListener("change", () => renderListWithTemplate(templateFunction, parentElement, list, position, clear))
   }
 
 
