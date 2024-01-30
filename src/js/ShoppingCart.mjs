@@ -90,8 +90,8 @@ function cartItemTemplate(product) {
 function cartTotalTemplate(totalPrice) {
     return `<li class="cart-card cart-price divider" id="cart-total">
         <p class="cart-card__total_price">Total: $${totalPrice}<p>
-        <a href="your_page_url.html">
-            <button>Go to Another Page</button>
+        <a href="/checkout/index.html">
+            <button>checkout</button>
         </a>
     </li>`;
 }
