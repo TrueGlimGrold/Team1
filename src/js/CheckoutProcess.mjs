@@ -1,5 +1,6 @@
 import { loadHeaderFooter, renderWithTemplate } from "./utils.mjs";
 import { getLocalStorage } from "./utils.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import { getShoppingCartKey } from "./utils.mjs";
 
 
@@ -15,6 +16,18 @@ function packageItems(items) {
   });
 }
 
+
+const services = new ExternalServices();
+function formDataToJSON(formElement) {
+  const formData = new FormData(formElement),
+    convertedJSON = {};
+
+  formData.forEach(function (value, key) {
+    convertedJSON[key] = value;
+  });
+
+  return convertedJSON;
+}
 
 
 export default class CheckoutProcess {
@@ -34,6 +47,7 @@ export default class CheckoutProcess {
     this.calculateItemSummary();
     this.calculateOrderTotal();
     this.displayorderitems();
+    this.checkout();
     
 
   }
@@ -71,45 +85,25 @@ export default class CheckoutProcess {
     ordertotals.innerText = "$" + this.orderTotal.toFixed(2);
 
  }
-
- 
-
-  //order date
-
-
   
-
     
-  async checkout(form) {
-    // Build the data object from the calculated fields, the items in the cart, and the information entered into the form
-    const data = {
-      orderTotal: this.orderTotal,
-      shipping: this.shipping,
-      tax: this.tax,
-      customerInfo: {
-        fname: form.fname.value,
-        lname: form.lname.value,
-        street: form.street.value,
-        city: form.city.value, 
-        zip: form.zip.value, 
-        cardNumber: form.cardNumber.value, 
-        expiration: form.expiration.value,
-        code: form.code.value,
-        // Add + fields
-      },
-      items: packageItems(getLocalStorage(this.key)),
-    };
+  async checkout() {
+    const formTable = document.forms["form-data"];
+    const json = formDataToJSON(formTable);
 
+     // add totals, and item details
+     json.orderDate = new Date();
+     json.orderTotal = this.orderTotal;
+     json.tax = this.tax;
+     json.shipping = this.shipping;
+     json.items = packageItems(this.list);
+     console.log(json);
     try {
-      // Call the checkout method in the ExternalServices module and send it our data object.
-      const response = await ExternalServices.checkout(data);
-
-      // Process the response as needed (e.g., show a success message to the user).
-      console.log("Checkout successful:", response);
-    } catch (error) {
-      // Handle errors (e.g., display an error message to the user).
-      console.error("Error during checkout:", error);
+    const res = await services.checkout(json);
+    console.log(res);
+    } catch (err) {
+    console.log(err);
+        }
     }
-  }
 }
 
