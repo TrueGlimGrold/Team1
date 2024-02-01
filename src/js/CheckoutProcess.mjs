@@ -1,4 +1,4 @@
-import { loadHeaderFooter, renderWithTemplate } from "./utils.mjs";
+import { loadHeaderFooter, renderWithTemplate, setLocalStorage } from "./utils.mjs";
 import { getLocalStorage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 import { getShoppingCartKey } from "./utils.mjs";
@@ -107,10 +107,13 @@ export default class CheckoutProcess {
      json.tax = this.tax;
      json.shipping = this.shipping;
      json.items = packageItems(this.list);
-     console.log(json);
     try {
       const res = await services.checkout(json);
-      console.log(res);
+      // Empty cart
+      setLocalStorage(this.key, []);
+      // Move to success page
+      // Using replace so users cannot double order
+      window.location.replace("/checkout/success.html");
     } catch (err) {
       console.log(err);
       }
