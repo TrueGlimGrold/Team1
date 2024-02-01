@@ -125,3 +125,19 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+export function alertMessage(message, scroll=true) {
+  // Create an alert element with the specified message
+  const alertElement = document.createElement("div");
+  alertElement.classList.add("alert");
+  alertElement.textContent = message;
+
+  // Insert the alert at the top of the main element
+  const mainElement = document.querySelector("main");
+  mainElement.insertBefore(alertElement, mainElement.firstChild);
+
+  // Scroll to the top of the page if the scroll parameter is true
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}

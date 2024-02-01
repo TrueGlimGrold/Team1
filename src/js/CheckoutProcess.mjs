@@ -87,23 +87,43 @@ export default class CheckoutProcess {
  }
   
     
-  async checkout() {
-    const formTable = document.forms["form-data"];
-    const json = formDataToJSON(formTable);
+ async checkout() {
+  const formTable = document.forms["checkout"];
 
-     // add totals, and item details
-     json.orderDate = new Date();
-     json.orderTotal = this.orderTotal;
-     json.tax = this.tax;
-     json.shipping = this.shipping;
-     json.items = packageItems(this.list);
-     console.log(json);
-    try {
+  // Check form validity before proceeding
+  if (!formTable.checkValidity()) {
+    formTable.reportValidity();
+    return; // Stop execution if the form is not valid
+  }
+
+  const json = formDataToJSON(formTable);
+
+  // add totals, and item details
+  json.orderDate = new Date();
+  json.orderTotal = this.orderTotal;
+  json.tax = this.tax;
+  json.shipping = this.shipping;
+  json.items = packageItems(this.list);
+
+  console.log(json);
+
+  try {
     const res = await services.checkout(json);
     console.log(res);
-    } catch (err) {
-    console.log(err);
-        }
+
+    // If the checkout is successful, clear local storage and redirect to the success page
+    setLocalStorage("so-cart", []);
+    location.assign("/checkout/success.html");
+  } catch (err) {
+    removeAllAlerts();
+
+    // Display each error message as an alert
+    for (let message in err.message) {
+      alertMessage(err.message[message]);
     }
+
+    console.log(err);
+  }
+}
 }
 

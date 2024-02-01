@@ -13,7 +13,7 @@ function productDetailsTemplate(product) {
         <p class="product__description">${product.DescriptionHtmlSimple}</p>
         <p class="discount-difference">Discount Difference: ${discountDifference.toFixed(0)}%</p>
         <div class="product-detail__add">
-            <button id="productButton" data-id="${product.Id}">Add to Cart</button>
+            <button id="productButton" data-id="${product.Id}" type="button">Add to Cart</button>
         </div>
     </section>`;
 }
@@ -35,8 +35,10 @@ export default class ProductDetails {
         // once we have the product details we can render out the HTML
         // once the HTML is rendered we can add a listener to Add to Cart button
         // Notice the .bind(this). Our callback will not work if we don't include that line. Review the readings from this week on 'this' to understand why.
-        document.getElementById("productButton")
-          .addEventListener("click", this.addToCart.bind(this));
+        setTimeout(() => {
+            document.getElementById("productButton")
+                .addEventListener("click", this.addToCart.bind(this));
+        }, 0);
     }
 
     // Armando's Week 1 Solution
@@ -58,6 +60,10 @@ export default class ProductDetails {
         if (!matchingProduct) {
             this.product.Quantity = 1;
             list.push(this.product);
+
+
+            // stretch challenge done!
+            alertMessage("Item added to the cart!", true);
         }
         setLocalStorage(key, list);
     }
