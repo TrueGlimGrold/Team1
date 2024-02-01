@@ -3,7 +3,6 @@ import { getLocalStorage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 import { getShoppingCartKey } from "./utils.mjs";
 
-
 // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
 function packageItems(items) {
     // convert the list of products from localStorage to the simpler form required for the checkout process.
@@ -47,9 +46,20 @@ export default class CheckoutProcess {
     this.calculateItemSummary();
     this.calculateOrderTotal();
     this.displayorderitems();
-    this.checkout();
-    
 
+    document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
+      e.preventDefault();
+
+      // Form Validation
+      const checkoutForm = document.forms[0];
+      const checkoutFormStatus = checkoutForm.checkValidity();
+      // Report issues to user
+      checkoutForm.reportValidity();
+
+      if (checkoutFormStatus) {
+        this.checkout();
+      }
+    });
   }
 
   calculateItemSummary() {
@@ -93,17 +103,17 @@ export default class CheckoutProcess {
 
      // add totals, and item details
      json.orderDate = new Date();
-     json.orderTotal = this.orderTotal;
+     json.orderTotal = this.orderTotal.toFixed(2);
      json.tax = this.tax;
      json.shipping = this.shipping;
      json.items = packageItems(this.list);
      console.log(json);
     try {
-    const res = await services.checkout(json);
-    console.log(res);
+      const res = await services.checkout(json);
+      console.log(res);
     } catch (err) {
-    console.log(err);
-        }
+      console.log(err);
+      }
     }
 }
 
