@@ -1,8 +1,4 @@
-import { loadHeaderFooter, renderWithTemplate } from "./utils.mjs";
-import { getLocalStorage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
-import { getShoppingCartKey } from "./utils.mjs";
-
 
 // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
 function packageItems(items) {
@@ -29,10 +25,14 @@ function formDataToJSON(formElement) {
   return convertedJSON;
 }
 
-
+/**
+ * @param {ShoppingCart} shoppingCart
+ * @param {string} outputSelector
+ */
 export default class CheckoutProcess {
-  constructor(key, outputSelector) {
-    this.key = key;
+  constructor(shoppingCart, outputSelector) {
+    this.cart = shoppingCart;
+    this.key = this.cart.getKey();
     this.outputSelector = outputSelector;
     this.list = [];
     this.itemTotal = 0;
@@ -43,29 +43,34 @@ export default class CheckoutProcess {
   }
 
   init() {
-    this.list = getLocalStorage(this.key);
+    this.list = this.cart.getCart();
     this.calculateItemSummary();
     this.calculateOrderTotal();
     this.displayorderitems();
-    this.checkout();
-    
 
+    document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
+      e.preventDefault();
+
+      // Form Validation
+      const checkoutForm = document.forms[0];
+      const checkoutFormStatus = checkoutForm.checkValidity();
+      // Report issues to user
+      checkoutForm.reportValidity();
+
+      if (checkoutFormStatus) {
+        this.checkout();
+      }
+    });
   }
 
   calculateItemSummary() {
-    this.itemTotal = this.list.reduce((total, item) => total + item.FinalPrice, 0);
-    const numItems = this.list.length;
-
-   /* document.querySelector(this.outputSelector).innerHTML = `
-      <p>Total Items: ${numItems}</p>
-      <p>Item Total: $${this.itemTotal}</p>
-    `; */
+    this.itemTotal = this.cart.getTotal();
     this.calculateOrderTotal();
   }
 
   calculateOrderTotal() {
     // Shipping: Use $10 for the first item plus $2 for each additional item after that.
-    this.shipping = 10 + (this.list.length - 1) * 2;
+    this.shipping = 10 + (this.cart.getNumberItemsInCart()) * 2;
     // Tax: Use 6% sales tax.
     this.tax = this.itemTotal * this.taxRate;
     // order total.
@@ -93,17 +98,21 @@ export default class CheckoutProcess {
 
      // add totals, and item details
      json.orderDate = new Date();
-     json.orderTotal = this.orderTotal;
+     json.orderTotal = this.orderTotal.toFixed(2);
      json.tax = this.tax;
      json.shipping = this.shipping;
      json.items = packageItems(this.list);
-     console.log(json);
     try {
-    const res = await services.checkout(json);
-    console.log(res);
-    } catch (err) {
-    console.log(err);
-        }
+      const res = await services.checkout(json);
+      // Empty cart
+      this.cart.emptyCart();
+      // Move to success page
+      // Using replace so users cannot double order
+      window.location.replace("/checkout/success.html");
     }
+    catch (err) {
+      console.log(err);
+    }
+  }
 }
 
