@@ -1,5 +1,5 @@
-import { loadHeaderFooter, renderWithTemplate } from "./utils.mjs";
-import { getLocalStorage } from "./utils.mjs";
+import { loadHeaderFooter, renderWithTemplate, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage, removeAllAlerts } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 import { getShoppingCartKey } from "./utils.mjs";
 
@@ -49,7 +49,19 @@ export default class CheckoutProcess {
     this.displayorderitems();
     this.checkout();
     
+    document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
+      e.preventDefault();
 
+      // Form Validation
+      const checkoutForm = document.forms[0];
+      const checkoutFormStatus = checkoutForm.checkValidity();
+      // Report issues to user
+      checkoutForm.reportValidity();
+
+      if (checkoutFormStatus) {
+        this.checkout();
+      }
+    });
   }
 
   calculateItemSummary() {
@@ -101,8 +113,13 @@ export default class CheckoutProcess {
     try {
     const res = await services.checkout(json);
     console.log(res);
+    setLocalStorage("so-cart", []);
+    location.assign("/checkout/success.html")
     } catch (err) {
-    console.log(err);
+      removeAllAlerts();
+      for (let message in err.message) {
+        alertMessage(err.message[message]);
+      }
         }
     }
 }

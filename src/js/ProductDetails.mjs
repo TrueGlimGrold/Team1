@@ -1,4 +1,4 @@
-import { getLocalStorage, getShoppingCartKey, setLocalStorage } from "./utils.mjs";
+import { alertMessage, getLocalStorage, getShoppingCartKey, setLocalStorage } from "./utils.mjs";
 
 // Emiliano's Solution
 function productDetailsTemplate(product) {
@@ -37,6 +37,7 @@ export default class ProductDetails {
         // Notice the .bind(this). Our callback will not work if we don't include that line. Review the readings from this week on 'this' to understand why.
         document.getElementById("productButton")
           .addEventListener("click", this.addToCart.bind(this));
+    
     }
 
     // Armando's Week 1 Solution
@@ -59,6 +60,7 @@ export default class ProductDetails {
             this.product.Quantity = 1;
             list.push(this.product);
         }
+        alertMessage("Added to Cart");
         setLocalStorage(key, list);
     }
 
