@@ -1,7 +1,6 @@
-import { loadHeaderFooter, renderWithTemplate, setLocalStorage } from "./utils.mjs";
+import { alertMessage, removeAllAlerts, setLocalStorage } from "./utils.mjs";
 import { getLocalStorage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
-import { getShoppingCartKey } from "./utils.mjs";
 
 // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
 function packageItems(items) {
@@ -115,8 +114,9 @@ export default class CheckoutProcess {
       // Using replace so users cannot double order
       window.location.replace("/checkout/success.html");
     } catch (err) {
-      console.log(err);
-      }
+      removeAllAlerts();
+      alertMessage(err.message);
     }
+  }
 }
 
