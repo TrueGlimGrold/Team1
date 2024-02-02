@@ -1,4 +1,3 @@
-import { setLocalStorage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
