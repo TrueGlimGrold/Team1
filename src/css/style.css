@@ -16,6 +16,7 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -95,6 +96,41 @@ button {
   border-bottom: 2px solid var(--primary-color);
 }
 /* End utility classes */
+
+/* Newsletter Pop-Up  */
+
+.newsletter-container {
+  position: fixed;
+  top:40px;
+  right:10px;
+  background-color: #ddd;
+  max-width: fit-content;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 1px 1px 4px var(--dark-grey);
+}
+
+#nl-close{
+  position: absolute;
+  width: fit-content;
+  top: -10px;
+  right: 5px;
+  background-color: white;
+}
+
+#nl-close {
+  border: 1px solid #555;
+  padding: 0 3px;
+}
+
+#nl-button {
+  text-decoration: none;
+  color: #303030;
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: 1px 1px 4px var(--tertiary-color);
+}
 
 /* Cart icon styles */
 .cart {
@@ -254,6 +290,8 @@ button {
 button:hover {
   background-color: #45a049;
 }
+
+
 
 @media only screen and (max-width: 600px) {
   form {
