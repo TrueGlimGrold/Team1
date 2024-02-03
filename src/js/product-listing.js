@@ -1,6 +1,7 @@
 import ExternalServices from "./ExternalServices.mjs";
 import ProductList from "./ProductList.mjs";
 import { getParam, loadHeaderFooter } from "./utils.mjs";
+import ProductDetails from "./ProductDetails.mjs";
 
 const category = getParam("category");
 const dataSource = new ExternalServices();
@@ -15,3 +16,5 @@ loadHeaderFooter(
   "/partials/header.html",
   "/partials/footer.html"
 );
+
+

@@ -102,6 +102,26 @@ button {
   position: relative;
   text-align: center;
 }
+/* Animate cart icon when product is added to cart */
+.addAnimation {
+  animation: move 1s forwards linear;
+  animation-iteration-count: 2;
+}
+@keyframes move {
+  0% {
+    transform: scale(1, 1);
+  }
+  
+25% {    
+    transform: scale(1.5, 1.5);
+}
+75% {    
+    transform: scale(0.75, 0.75); 
+}
+100% {
+    transform: scale(1, 1);
+}
+}
 
 .cart svg {
   width: 25px;
@@ -253,6 +273,19 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+
+/* alert styles */
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  background-color: var(--primary-color);
+  border: 1px solid darkorange;
+}
+.alert > p {
+  margin: 0;
 }
 
 @media only screen and (max-width: 600px) {

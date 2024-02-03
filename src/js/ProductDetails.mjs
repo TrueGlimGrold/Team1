@@ -5,6 +5,7 @@ function productDetailsTemplate(product) {
     const discountDifference = ((product.SuggestedRetailPrice - product.FinalPrice) / product.SuggestedRetailPrice) * 100;
 
     return `<section class="product-detail">
+        <span class="close">&times;</span>
         <h3>${product.Brand.Name}</h3>
         <h2 class="divider">${product.NameWithoutBrand}</h2>
         <img src="${product.Images.PrimaryLarge}" alt="${product.NameWithoutBrand}" />
@@ -17,6 +18,7 @@ function productDetailsTemplate(product) {
         </div>
     </section>`;
 }
+
 
 export default class ProductDetails {
     constructor(productID, dataSource) {
@@ -43,6 +45,7 @@ export default class ProductDetails {
     // Modified by Cooper
     addToCart() {
         let key = getShoppingCartKey();
+        let cartIcon = document.querySelector(".cart");
         let cart_list = getLocalStorage(key);
         let list = [];
         let matchingProduct = false;
@@ -60,6 +63,12 @@ export default class ProductDetails {
             list.push(this.product);
         }
         setLocalStorage(key, list);
+        cartIcon.scrollIntoView();
+        cartIcon.classList.add("addAnimation");
+        setTimeout(() => {
+            cartIcon.classList.remove("addAnimation");
+        }, 3000);
+           
     }
 
     // TODO: Refactor this to work with the generic renderer in utils.js
