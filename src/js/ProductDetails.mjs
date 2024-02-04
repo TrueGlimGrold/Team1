@@ -19,10 +19,11 @@ function productDetailsTemplate(product) {
 }
 
 export default class ProductDetails {
-    constructor(productID, dataSource) {
+    constructor(productID, dataSource, category) {
         this.productID = productID;
         this.product = [];
         this.dataSource = dataSource;
+        this.category = category;
     }
 
     async init() {
@@ -39,6 +40,10 @@ export default class ProductDetails {
             document.getElementById("productButton")
                 .addEventListener("click", this.addToCart.bind(this));
         }, 0);
+
+
+        const breadcrumbText = `Home > Product listing: ${this.category} > Product pages > ${this.product.NameWithoutBrand}`;
+        this.updateBreadcrumb(breadcrumbText);
     }
 
     // Armando's Week 1 Solution
@@ -68,10 +73,16 @@ export default class ProductDetails {
         setLocalStorage(key, list);
     }
 
+    updateBreadcrumb(text) {
+        const breadcrumbElement = document.getElementById("breadcrumb");
+        breadcrumbElement.innerHTML = `<p>${text}</p>`;
+    }
+
     // TODO: Refactor this to work with the generic renderer in utils.js
     // Issue seems to be that this page only handles one product?
     renderProductDetails(selector) {
         const element = document.querySelector(selector);
         element.insertAdjacentHTML("afterBegin", productDetailsTemplate(this.product));
+        this.updateBreadcrumb(`Home > Product listing: ${this.category} > Product pages > ${this.product.NameWithoutBrand}`);
     }
 }

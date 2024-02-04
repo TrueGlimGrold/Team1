@@ -10,6 +10,22 @@ function defaultTemplate(data) {
   return data;
 }
 
+// Function to set a value in localStorage
+export function setLocalStorageItem(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+// Function to get a value from localStorage
+export function getLocalStorageItem(key) {
+  const storedValue = localStorage.getItem(key);
+  return storedValue ? JSON.parse(storedValue) : null;
+}
+
+// Function to remove a value from localStorage
+export function removeLocalStorageItem(key) {
+  localStorage.removeItem(key);
+}
+
 // retrieve data from localstorage
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));

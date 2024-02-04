@@ -22,6 +22,9 @@ export default class ProductList {
 
         /*const filteredProducts = this.filterByDenylist(products);
         this.renderList(filteredProducts);*/
+
+        const breadcrumbText = `Home > Product listing: ${this.category} (${products.length} items)`;
+        this.renderBreadcrumb(breadcrumbText);
     }
 
     // Remove products that are marked as not ready.
@@ -38,6 +41,11 @@ export default class ProductList {
     // Render HTML for each product
     renderList(products) {
         renderListWithTemplate(productCardTemplate, this.listElement, products);
+    }
+
+    renderBreadcrumb(text) {
+        const breadcrumbElement = document.getElementById("breadcrumb");
+        breadcrumbElement.innerHTML = `<p>${text}</p>`;
     }
 }
 
