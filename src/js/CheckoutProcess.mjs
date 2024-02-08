@@ -1,4 +1,4 @@
-import { loadHeaderFooter, renderWithTemplate } from "./utils.mjs";
+import { loadHeaderFooter, renderWithTemplate, alertMessage, removeAllAlerts, setLocalStorage } from "./utils.mjs";
 import { getLocalStorage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 import { getShoppingCartKey } from "./utils.mjs";
@@ -48,6 +48,7 @@ export default class CheckoutProcess {
     this.calculateOrderTotal();
     this.displayorderitems();
     this.checkout();
+
     
 
   }
@@ -84,8 +85,7 @@ export default class CheckoutProcess {
     tax.innerText = "$" + this.tax.toFixed(2);
     ordertotals.innerText = "$" + this.orderTotal.toFixed(2);
 
- }
-  
+ }  
     
   async checkout() {
     const formTable = document.forms["form-data"];
@@ -101,8 +101,13 @@ export default class CheckoutProcess {
     try {
     const res = await services.checkout(json);
     console.log(res);
+    setLocalStorage("so-cart", []);
     } catch (err) {
-    console.log(err);
+      removeAllAlerts();
+      for (let message in err.message){
+        alertMessage(err.message[message]);
+      }
+      console.log(err);
         }
     }
 }

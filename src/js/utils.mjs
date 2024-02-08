@@ -24,13 +24,13 @@ export function getParam(params) {
   return product;
 }
 
-// We don't have user logins to hold a cart key, so I want an easily accessible cart key.
+// We don"t have user logins to hold a cart key, so I want an easily accessible cart key.
 export function getShoppingCartKey() {
   return "so-cart";
 }
 
 /**
- * @param {string} key - key of cart's localstorage
+ * @param {string} key - key of cart"s localstorage
  * @param {string} id - id of product to remove from cart
  */
 export function removeItemFromLocalStorage(key, id) {
@@ -124,4 +124,31 @@ export function setClick(selector, callback) {
     callback();
   });
   qs(selector).addEventListener("click", callback);
+}
+
+export function alertMessage(message, scroll = true, duration = 2000) {
+
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  alert.innerHTML = `<p>${message}</p><span>X</span>`;
+
+  alert.addEventListener("click", function (e) {
+    if (e.target.tagName == "SPAN") {
+      main.removeChild(this);
+    }
+  });
+
+  // add the alert to the top of main
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  // make sure they see the alert by scrolling to the top of the window
+  // we may not always want to do this...so default to scroll=true, but allow it to be passed in and overridden.
+  if (scroll)
+    window.scrollTo(0, 0);
+}
+
+export function removeAllAlerts() {
+  const alerts = document.querySelectorAll(".alert");
+  alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
 }
